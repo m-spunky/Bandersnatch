@@ -5,8 +5,8 @@ from constants import *
 g_map = [
 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 1, 1, 0, 0, 0, 0, 0, 1],
+[1, 0, 1, 1, 0, 0, 0, 0, 0, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -50,7 +50,7 @@ def cast_ray():
             if g_map[row][col] == 1:
                 pg.draw.rect(screen,(0,255,0),(col*TILE_SIZE,row*TILE_SIZE,TILE_SIZE-2,TILE_SIZE-2))
 
-                pg.draw.line(screen,(0,0,255),(int(PLAYER_X),int(PLAYER_Y)),(target_x,target_y))
+                pg.draw.line(screen,(0,0,255),(int(PLAYER_X),int(PLAYER_Y)),(target_x+row*TILE_SIZE,target_y-col*TILE_SIZE))
 
 
                 color = 50 / (1 + depth * depth * 0.0001)  
@@ -110,10 +110,10 @@ def projection():
     
 while True:
     screen.fill('black')
-    # draw_map()
+    draw_map()
     cast_ray()
 
-    projection()
+    # projection()
     check_events()
     pg.display.update()
 
