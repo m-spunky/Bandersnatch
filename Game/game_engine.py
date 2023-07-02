@@ -12,23 +12,27 @@ class Raycaster:
         
     def update(self):
         self.raycast()
-        # self.get_object_to_render()
+        self.get_object_to_render()
 
     def get_object_to_render(self):
-        self.raycast()
         self.object_to_render = []
         for ray,value in enumerate(self.raycast_results):
+            
             depth , proj_height, texture , offset = value
 
             wall_strip = self.textures[texture].subsurface(
                 offset * (TEXTURE_SIZE - SCALE),0,SCALE,TEXTURE_SIZE
             )
-            wall_strip = pg.transform.scale(wall_strip,(SCALE,int(proj_height)))
-            wall_pos = (ray *SCALE,HALF_HIGHT-proj_height//2)
+            wall_strip = pg.transform.scale(wall_strip,(SCALE,int(proj_height+ WALL_HEIGHT_OFFSET )))
+            
+            
+            wall_pos = (ray *SCALE,HALF_HIGHT-proj_height//WALL_Y_OFFSET)
             self.object_to_render.append((depth,wall_strip,wall_pos))
-
+            
+# (ray*SCALE , HALF_HIGHT - proj_height//WALL_Y_OFFSET,SCALE,proj_height + WALL_HEIGHT_OFFSET )
 
     def raycast(self):
+        self.raycast_results = []
         ox,oy = self.game.player.pos
         x_map,y_map = self.game.player.map_pos
         tex_vert , tex_hor = 1,1
@@ -74,12 +78,12 @@ class Raycaster:
         # Optimum Depth 
             if depth_vert>depth_hor:
                 depth,texture = depth_hor,tex_hor
-                y_vert %= 1
-                offset = y_vert if cos_a>0 else (1-y_vert)
-            else:
-                depth,texture = depth_vert,tex_vert
                 x_hor %= 1
                 offset = (1-x_hor) if sin_a>0 else x_hor
+            else:
+                depth,texture = depth_vert,tex_vert
+                y_vert %= 1
+                offset = y_vert if cos_a>0 else (1-x_vert)
 
         # Fishbowl correction
             self.depth = depth
@@ -93,16 +97,15 @@ class Raycaster:
             
         # Draw Walls
             # print(ray*SCALE)
-            pg.draw.rect(self.game.screen,'red',(ray*SCALE , HALF_HIGHT - proj_height//WALL_Y_OFFSET,SCALE,proj_height + WALL_HEIGHT_OFFSET ),int(1))
+            # pg.draw.rect(self.game.screen,'red',(ray*SCALE , HALF_HIGHT - proj_height//WALL_Y_OFFSET,SCALE,proj_height + WALL_HEIGHT_OFFSET ),int(1))
 
             pg.draw.line(self.game.screen,'yellow',(WIDTH + MAP_TILE*ox,MAP_TILE*oy),(WIDTH + MAP_TILE * ox + MAP_TILE * depth * cos_a,MAP_TILE * oy + MAP_TILE * depth * sin_a),3)
 
-            # self.raycast_results.append((depth , proj_height, texture , offset))
+            # 
+            self.raycast_results.append((depth , proj_height, texture , offset))
             # print(depth , proj_height, texture , offset)
         # Next Angle
             
             ray_angle += DELTA_ANGLE
-        # self.get_object_to_render()
-
 
 

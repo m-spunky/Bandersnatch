@@ -13,12 +13,9 @@ class ObjectRenderer:
 
     def render_object(self):
         list_objects = self.game.engine.object_to_render
+        
         for depth , wall_strip , wall_pos in list_objects:
             self.screen.blit(wall_strip,wall_pos)
-
-
-
-        
 
     @staticmethod
     def get_texture(path,res=(TEXTURE_SIZE,TEXTURE_SIZE)):

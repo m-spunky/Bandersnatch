@@ -2,6 +2,7 @@ import pygame as pg
 from game_settings import *
 from game_map import *
 import math
+import sys
 
 class Player():
     def __init__(self,game):
@@ -16,6 +17,9 @@ class Player():
         dy = PLAYER_SPEED * math.sin(self.angle)* self.game.delta_time
 
         for event in pg.event.get():
+            
+            if event.type == pg.KEYDOWN and event.key == pg.K_e:
+                sys.exit()  
             if event.type == pg.KEYDOWN and event.key == pg.K_w:
                 self.move_or_not(dx,dy)
             if event.type == pg.KEYDOWN and event.key == pg.K_d:
