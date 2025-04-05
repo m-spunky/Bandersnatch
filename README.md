@@ -16,17 +16,6 @@
 
 ---
 
-## 📸 Screenshots
-
-> *(Add your own screenshots in the `assets/screenshots/` folder)*
-
-```
-![Gameplay Screenshot](assets/screenshots/screenshot1.png)
-![Raytraced Lighting](assets/screenshots/screenshot2.png)
-```
-
----
-
 ## 🧑‍💻 Built With
 
 - **Python 3.9+**
@@ -40,7 +29,7 @@
 
 1. **Clone the Repository**
 ```bash
-git clone https://github.com/yourusername/bandersnatch-fps.git
+git clone https://github.com/m-spunky/Bandersnatch.git
 cd bandersnatch-fps
 ```
 
@@ -95,12 +84,6 @@ bandersnatch/
 - [DOOM (1993)](https://doomwiki.org)
 - [Wolfenstein 3D](https://en.wikipedia.org/wiki/Wolfenstein_3D)
 - Netflix’s **Bandersnatch** (for surreal themes and choices)
-
----
-
-## 📜 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
